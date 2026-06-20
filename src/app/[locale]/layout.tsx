@@ -36,7 +36,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={inter.variable}>
-      <body className="min-h-screen bg-[#0A1628] text-white">
+      <body className="min-h-screen bg-[#F4F6F5] text-[#111816]">
         <Providers>
           <Header locale={locale as any} />
           <main className="flex-1">{children}</main>

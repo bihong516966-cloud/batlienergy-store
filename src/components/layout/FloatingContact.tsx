@@ -33,7 +33,7 @@ export default function FloatingContact() {
           href="mailto:julian@batelithium.com"
           title="Email Us"
           className="flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
-          style={{ backgroundColor: '#1E3A5F' }}
+          style={{ backgroundColor: '#111816' }}
         >
           <Mail className="h-5 w-5 text-white" />
         </a>
@@ -45,14 +45,14 @@ export default function FloatingContact() {
         title={isOpen ? 'Close' : 'Contact Us'}
         className="flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl cursor-pointer"
         style={{
-          backgroundColor: '#00E676',
+          backgroundColor: '#168C5A',
           boxShadow: isOpen
-            ? '0 4px 20px rgba(0, 230, 118, 0.4)'
-            : '0 4px 20px rgba(0, 230, 118, 0.3)',
+            ? '0 4px 20px rgba(22, 140, 90, 0.34)'
+            : '0 4px 20px rgba(22, 140, 90, 0.26)',
         }}
         aria-label={isOpen ? 'Close contact menu' : 'Open contact menu'}
       >
-        <MessageCircle className="h-6 w-6 text-[#0A1628]" />
+        <MessageCircle className="h-6 w-6 text-white" />
       </button>
     </div>
   );
