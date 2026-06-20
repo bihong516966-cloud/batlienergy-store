@@ -292,6 +292,7 @@ export default async function ProductDetailPage({
                           src={rp.images[0]}
                           alt={rp.name}
                           fill
+                          loading="eager"
                           sizes="(max-width: 1024px) 50vw, 25vw"
                           className="object-contain bg-white p-5 transition-transform duration-300 group-hover:scale-105"
                         />
@@ -566,6 +567,7 @@ function CategoryListingPage({
                         src={product.images[0]}
                         alt={product.name}
                         fill
+                        loading="eager"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
                       />

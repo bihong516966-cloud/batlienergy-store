@@ -83,6 +83,7 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
                         src={product.images[0]}
                         alt={product.name}
                         fill
+                        loading="eager"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
                       />
