@@ -11,5 +11,5 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function OrderConfirmPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  return <OrderConfirmPageClient />;
+  return <OrderConfirmPageClient locale={locale} />;
 }

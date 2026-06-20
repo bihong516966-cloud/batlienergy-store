@@ -507,7 +507,7 @@ function CategoryListingPage({
                             {product.name}
                           </Link>
                           {product.badge && (
-                            <Badge className="w-fit bg-[#00E676] text-[#0A1628] border-0">
+                            <Badge className="w-fit bg-[#111816] text-white border-0">
                               {product.badge}
                             </Badge>
                           )}
