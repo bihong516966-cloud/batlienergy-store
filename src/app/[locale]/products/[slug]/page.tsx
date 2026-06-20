@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Zap, ArrowRight, ArrowLeft, Shield, Package, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -79,7 +80,18 @@ export default async function ProductDetailPage({
             <div className="flex flex-col gap-4">
               <div className="relative aspect-square rounded-2xl bg-[#111D2E] border border-[#1E3A5F] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00E676]/5 via-transparent to-transparent" />
-                <Zap className="h-32 w-32 text-[#00E676]/30" />
+                {product.images[0] ? (
+                  <Image
+                    src={product.images[0]}
+                    alt={product.name}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-contain bg-white p-8"
+                  />
+                ) : (
+                  <Zap className="h-32 w-32 text-[#00E676]/30" />
+                )}
                 {product.badge && (
                   <Badge className="absolute left-4 top-4 bg-[#00E676] text-[#0A1628] border-0 font-semibold text-sm px-3 py-1">
                     {product.badge}
@@ -274,8 +286,18 @@ export default async function ProductDetailPage({
                   className="group"
                 >
                   <Card className="card-hover h-full overflow-hidden border-[#1E3A5F] bg-[#0A1628]">
-                    <div className="aspect-square bg-[#111D2E] flex items-center justify-center">
-                      <Zap className="h-12 w-12 text-[#00E676]/40 group-hover:text-[#00E676]/70 transition-colors" />
+                    <div className="relative aspect-square bg-[#111D2E] flex items-center justify-center">
+                      {rp.images[0] ? (
+                        <Image
+                          src={rp.images[0]}
+                          alt={rp.name}
+                          fill
+                          sizes="(max-width: 1024px) 50vw, 25vw"
+                          className="object-contain bg-white p-5 transition-transform duration-300 group-hover:scale-105"
+                        />
+                      ) : (
+                        <Zap className="h-12 w-12 text-[#00E676]/40 group-hover:text-[#00E676]/70 transition-colors" />
+                      )}
                     </div>
                     <CardContent className="p-4">
                       <Badge className="mb-2 bg-[#00E676]/10 text-[#00E676] border-0">
@@ -539,7 +561,17 @@ function CategoryListingPage({
               >
                 <Card className="card-hover h-full overflow-hidden border-[#D7DDD9] bg-[#F8FAF9] shadow-sm">
                   <div className="relative aspect-square bg-[#E8ECEA] flex items-center justify-center">
-                    <Zap className="h-16 w-16 text-[#168C5A]/45 group-hover:text-[#168C5A]/75 transition-colors" />
+                    {product.images[0] ? (
+                      <Image
+                        src={product.images[0]}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
+                      />
+                    ) : (
+                      <Zap className="h-16 w-16 text-[#168C5A]/45 group-hover:text-[#168C5A]/75 transition-colors" />
+                    )}
                     {product.badge && (
                       <Badge className="absolute left-3 top-3 bg-[#111816] text-white border-0 font-semibold">
                         {product.badge}

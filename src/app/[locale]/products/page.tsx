@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Zap, ArrowRight, Search, SlidersHorizontal } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -77,7 +78,17 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
                 <Card className="card-hover h-full overflow-hidden border-[#D7DDD9] bg-white shadow-sm">
                   {/* Image Placeholder */}
                   <div className="relative aspect-square bg-[#E8ECEA] flex items-center justify-center">
-                    <Zap className="h-16 w-16 text-[#168C5A]/45 group-hover:text-[#168C5A]/75 transition-colors" />
+                    {product.images[0] ? (
+                      <Image
+                        src={product.images[0]}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
+                      />
+                    ) : (
+                      <Zap className="h-16 w-16 text-[#168C5A]/45 group-hover:text-[#168C5A]/75 transition-colors" />
+                    )}
                     {product.badge && (
                       <Badge className="absolute left-3 top-3 bg-[#111816] text-white border-0 font-semibold">
                         {product.badge}
