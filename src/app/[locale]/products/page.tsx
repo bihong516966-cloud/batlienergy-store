@@ -118,6 +118,30 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
                       {product.description}
                     </p>
 
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {Object.entries(product.specs).slice(0, 3).map(([key, value]) => (
+                        <span
+                          key={key}
+                          className="rounded-md border border-[#D7DDD9] bg-[#F8FAF9] px-2 py-1 text-xs text-[#5E6A65]"
+                        >
+                          {key}: <span className="font-medium text-[#111816]">{value}</span>
+                        </span>
+                      ))}
+                    </div>
+
+                    {product.certifications.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {product.certifications.slice(0, 3).map((cert) => (
+                          <span
+                            key={cert}
+                            className="rounded border border-[#C9D2CE] bg-white px-2 py-0.5 text-[11px] font-medium text-[#36423E]"
+                          >
+                            {cert}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
                     {/* Price & MOQ */}
                     <div className="mt-4 flex items-end justify-between border-t border-[#D7DDD9] pt-3">
                       <div>

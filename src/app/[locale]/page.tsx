@@ -1,5 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, Zap, Globe, Shield, Truck } from "lucide-react";
+import Image from "next/image";
+import {
+  ArrowRight,
+  BatteryCharging,
+  CheckCircle2,
+  ClipboardCheck,
+  Factory,
+  PackageCheck,
+  Shield,
+  Truck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,125 +22,143 @@ interface HomePageProps {
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
-  const featuredProducts = products.slice(0, 4);
+  const featuredProducts = products.filter((product) => product.images[0]).slice(0, 4);
+  const keyCategories = categories.slice(0, 8);
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[#0A1628] py-20 lg:py-32">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#00E676]/5 via-transparent to-transparent" />
-        <div className="container relative mx-auto px-4">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
-            <div className="flex flex-col justify-center space-y-8">
-              <div className="space-y-4">
-                <Badge className="w-fit bg-[#00E676]/10 text-[#00E676] border-[#00E676]/20">
-                  Global B2B Battery Supplier
-                </Badge>
-                <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                  Power Your World with{" "}
-                  <span className="gradient-text">Premium Lithium</span>{" "}
-                  Battery Cells
-                </h1>
-                <p className="max-w-[600px] text-lg text-[#94A3B8] sm:text-xl">
-                  Professional lithium battery manufacturer serving 50+ countries. 
-                  10M+ cells annually. 8+ years of excellence in energy solutions.
-                </p>
+    <div className="flex flex-col bg-[#F4F6F5]">
+      <section className="border-b border-[#D7DDD9] bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid min-h-[calc(100vh-4rem)] gap-10 py-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:py-16">
+            <div>
+              <Badge className="mb-5 w-fit border border-[#C9D2CE] bg-[#F8FAF9] px-3 py-1 text-[#36423E]">
+                Industrial lithium battery supply for global B2B buyers
+              </Badge>
+              <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-[#111816] sm:text-5xl lg:text-6xl">
+                Batlienergy
+                <span className="block text-[#168C5A]">Battery Cells & Packs</span>
+              </h1>
+              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[#5E6A65]">
+                Mainstream cylindrical cells, LiFePO4 cells, e-bike packs, tool batteries,
+                FPV packs, and storage systems for distributors, repair shops, OEM projects,
+                and wholesale buyers.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href={`/${locale}/products`}>
+                  <Button size="lg" className="bg-[#111816] text-white hover:bg-[#2A3330]">
+                    Browse Product Catalog
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href={`/${locale}/contact`}>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-[#C9D2CE] bg-white text-[#111816] hover:bg-[#E8ECEA]"
+                  >
+                    Request Bulk Quote
+                  </Button>
+                </Link>
               </div>
-              <div className="flex flex-col gap-4 sm:flex-row">
-              <Link href={`/${locale}/products`}>
-                <Button
-                  size="lg"
-                  className="btn-energy text-[#0A1628] font-semibold"
-                >
-                  View Products
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href={`/${locale}/contact`}>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-[#1E3A5F] text-white hover:bg-[#1E3A5F]"
-                >
-                  Request OEM Quote
-                </Button>
-              </Link>
-              </div>
-              <div className="flex items-center gap-8 pt-4">
-                <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-[#00E676]">50+</span>
-                  <span className="text-sm text-[#94A3B8]">Countries</span>
-                </div>
-                <div className="h-12 w-px bg-[#1E3A5F]" />
-                <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-[#00E676]">10M+</span>
-                  <span className="text-sm text-[#94A3B8]">Cells/Year</span>
-                </div>
-                <div className="h-12 w-px bg-[#1E3A5F]" />
-                <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-[#00E676]">8+</span>
-                  <span className="text-sm text-[#94A3B8]">Years</span>
-                </div>
+
+              <div className="mt-8 grid max-w-2xl grid-cols-3 border-y border-[#D7DDD9]">
+                <HeroMetric value="50+" label="Export markets" />
+                <HeroMetric value="10M+" label="Cells supplied yearly" />
+                <HeroMetric value="8+" label="Years battery sourcing" />
               </div>
             </div>
-            <div className="relative flex items-center justify-center lg:justify-end">
-              <div className="relative">
-                <div className="absolute -inset-4 rounded-full bg-[#00E676]/20 blur-3xl" />
-                <div className="relative rounded-2xl bg-gradient-to-br from-[#111D2E] to-[#0A1628] p-8 border border-[#1E3A5F]">
-                  <div className="grid grid-cols-2 gap-4">
-                    {featuredProducts.map((product) => (
-                      <div
-                        key={product.id}
-                        className="rounded-lg bg-[#0A1628] p-4 border border-[#1E3A5F]"
-                      >
-                        <div className="aspect-square rounded-md bg-[#1E3A5F]/50 mb-3 flex items-center justify-center">
-                          <Zap className="h-8 w-8 text-[#00E676]" />
-                        </div>
-                        <h3 className="text-sm font-medium text-white truncate">
-                          {product.name}
-                        </h3>
-                        <p className="text-xs text-[#94A3B8]">
-                          ${product.price.b2b.min}-{product.price.b2b.max}
-                        </p>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {featuredProducts.map((product) => (
+                <Link key={product.id} href={`/${locale}/products/${product.slug}`} className="group">
+                  <Card className="h-full overflow-hidden border-[#D7DDD9] bg-[#F8FAF9] shadow-sm transition-colors hover:border-[#168C5A]">
+                    <div className="relative aspect-square bg-white">
+                      <Image
+                        src={product.images[0]}
+                        alt={product.name}
+                        fill
+                        priority
+                        sizes="(max-width: 1024px) 50vw, 25vw"
+                        className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                    <CardContent className="p-4">
+                      <p className="text-xs font-medium uppercase tracking-wide text-[#5E6A65]">
+                        {categories.find((c) => c.id === product.category)?.name}
+                      </p>
+                      <h3 className="mt-1 font-semibold text-[#111816] group-hover:text-[#168C5A]">
+                        {product.name}
+                      </h3>
+                      <div className="mt-3 flex items-center justify-between border-t border-[#D7DDD9] pt-3 text-sm">
+                        <span className="font-bold text-[#126B45]">
+                          ${product.price.b2b.min} - ${product.price.b2b.max}
+                        </span>
+                        <span className="text-[#5E6A65]">MOQ {product.moq}</span>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section className="bg-[#111D2E] py-20">
+      <section className="border-b border-[#D7DDD9] bg-[#F8FAF9] py-5">
         <div className="container mx-auto px-4">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-white sm:text-4xl">
-              Product Categories
-            </h2>
-            <p className="mt-4 text-[#94A3B8]">
-              Comprehensive lithium battery solutions for every application
-            </p>
+          <div className="grid gap-3 text-sm text-[#36423E] sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { label: "Verified supply channels", icon: ClipboardCheck },
+              { label: "UN38.3 / CE / UL options", icon: Shield },
+              { label: "Wholesale MOQ and OEM support", icon: PackageCheck },
+              { label: "Export packaging and shipping", icon: Truck },
+            ].map((item) => (
+              <div key={item.label} className="flex items-center gap-2">
+                <item.icon className="h-4 w-4 text-[#168C5A]" />
+                <span>{item.label}</span>
+              </div>
+            ))}
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                href={`/${locale}/products/${category.id}`}
-                className="group"
-              >
-                <Card className="card-hover border-[#1E3A5F] bg-[#0A1628]">
-                  <CardContent className="flex flex-col items-center p-6 text-center">
-                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#00E676]/10 group-hover:bg-[#00E676]/20">
-                      <Zap className="h-8 w-8 text-[#00E676]" />
+        </div>
+      </section>
+
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-3xl font-bold text-[#111816]">Battery Product Lines</h2>
+              <p className="mt-2 max-w-2xl text-[#5E6A65]">
+                Organized for purchasing teams: compare by application, chemistry, MOQ,
+                certificates, and target price range.
+              </p>
+            </div>
+            <Link href={`/${locale}/products`}>
+              <Button variant="outline" className="border-[#C9D2CE] bg-white text-[#111816] hover:bg-[#E8ECEA]">
+                All Products
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {keyCategories.map((category) => (
+              <Link key={category.id} href={`/${locale}/products/${category.id}`} className="group">
+                <Card className="h-full border-[#D7DDD9] bg-[#F8FAF9] shadow-sm transition-colors hover:border-[#168C5A]">
+                  <CardContent className="p-5">
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-white text-[#168C5A] ring-1 ring-[#D7DDD9]">
+                      <BatteryCharging className="h-5 w-5" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="font-semibold text-[#111816] group-hover:text-[#168C5A]">
                       {category.name}
                     </h3>
-                    <p className="mt-2 text-sm text-[#94A3B8]">
-                      View products
+                    <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[#5E6A65]">
+                      {category.description}
                     </p>
+                    <div className="mt-4 flex items-center gap-1 text-sm font-medium text-[#36423E] group-hover:text-[#168C5A]">
+                      View category
+                      <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                    </div>
                   </CardContent>
                 </Card>
               </Link>
@@ -139,53 +167,97 @@ export default async function HomePage({ params }: HomePageProps) {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="bg-[#0A1628] py-20">
+      <section className="border-y border-[#D7DDD9] bg-[#F4F6F5] py-16">
         <div className="container mx-auto px-4">
-          <div className="mb-12 flex items-end justify-between">
+          <div className="grid gap-8 lg:grid-cols-[360px_1fr] lg:items-start">
             <div>
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                Featured Products
-              </h2>
-              <p className="mt-4 text-[#94A3B8]">
-                Best-selling lithium batteries with competitive B2B pricing
+              <Badge className="mb-4 bg-[#E7F4EE] text-[#126B45]">RFQ workflow</Badge>
+              <h2 className="text-3xl font-bold text-[#111816]">Built for battery buyers</h2>
+              <p className="mt-3 text-[#5E6A65]">
+                The catalog helps buyers quickly understand available models, sourcing
+                confidence, certificates, and whether the product fits their MOQ.
               </p>
             </div>
-            <Link href={`/${locale}/products`}>
-              <Button
-                variant="outline"
-                className="hidden border-[#1E3A5F] text-white hover:bg-[#1E3A5F] sm:flex"
-              >
-                View All
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                {
+                  icon: Factory,
+                  title: "Application Matching",
+                  desc: "Cells and packs grouped by e-bike, tool, ESS, FPV, portable power, and OEM use cases.",
+                },
+                {
+                  icon: Shield,
+                  title: "Compliance First",
+                  desc: "UN38.3, CE, UL, IEC62619, MSDS, and export packaging requirements surfaced early.",
+                },
+                {
+                  icon: CheckCircle2,
+                  title: "Quote Ready",
+                  desc: "Each product shows MOQ, price range, core specs, and direct quote action for bulk orders.",
+                },
+              ].map((item) => (
+                <div key={item.title} className="border-l-2 border-[#168C5A] bg-white p-5">
+                  <item.icon className="mb-4 h-6 w-6 text-[#168C5A]" />
+                  <h3 className="font-semibold text-[#111816]">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#5E6A65]">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-3xl font-bold text-[#111816]">Featured Battery Models</h2>
+              <p className="mt-2 text-[#5E6A65]">
+                Products with clean images are now presented as RFQ-ready catalog items.
+              </p>
+            </div>
+            <Link href={`/${locale}/products/cylindrical`}>
+              <Button variant="outline" className="border-[#C9D2CE] bg-white text-[#111816] hover:bg-[#E8ECEA]">
+                Cylindrical Cells
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featuredProducts.map((product) => (
-              <Link key={product.id} href={`/${locale}/products/${product.slug}`}>
-                <Card className="card-hover overflow-hidden border-[#1E3A5F] bg-[#111D2E]">
-                  <div className="aspect-square bg-[#0A1628] flex items-center justify-center">
-                    <Zap className="h-16 w-16 text-[#00E676]/50" />
+              <Link key={product.id} href={`/${locale}/products/${product.slug}`} className="group">
+                <Card className="h-full overflow-hidden border-[#D7DDD9] bg-white shadow-sm transition-colors hover:border-[#168C5A]">
+                  <div className="relative aspect-square bg-[#F8FAF9]">
+                    <Image
+                      src={product.images[0]}
+                      alt={product.name}
+                      fill
+                      loading="eager"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
+                      className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
+                    />
                   </div>
                   <CardContent className="p-4">
-                    <Badge className="mb-2 bg-[#00E676]/10 text-[#00E676] border-0">
+                    <Badge className="mb-2 bg-[#E7F4EE] text-[#126B45] border-0">
                       {categories.find((c) => c.id === product.category)?.name}
                     </Badge>
-                    <h3 className="font-semibold text-white">{product.name}</h3>
-                    <p className="mt-1 text-sm text-[#94A3B8] line-clamp-2">
+                    <h3 className="font-semibold text-[#111816] group-hover:text-[#168C5A]">
+                      {product.name}
+                    </h3>
+                    <p className="mt-1 line-clamp-2 text-sm text-[#5E6A65]">
                       {product.description}
                     </p>
-                    <div className="mt-4 flex items-center justify-between">
+                    <div className="mt-4 grid grid-cols-2 gap-3 border-t border-[#D7DDD9] pt-3 text-sm">
                       <div>
-                        <span className="text-xs text-[#94A3B8]">B2B Price</span>
-                        <p className="text-lg font-bold text-[#00E676]">
-                          ${product.price.b2b.min}-{product.price.b2b.max}
+                        <span className="text-xs text-[#5E6A65]">B2B Price</span>
+                        <p className="font-bold text-[#126B45]">
+                          ${product.price.b2b.min} - ${product.price.b2b.max}
                         </p>
                       </div>
-                      <span className="text-xs text-[#94A3B8]">
-                        MOQ: {product.moq}
-                      </span>
+                      <div>
+                        <span className="text-xs text-[#5E6A65]">MOQ</span>
+                        <p className="font-semibold text-[#111816]">{product.moq} pcs</p>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -195,86 +267,45 @@ export default async function HomePage({ params }: HomePageProps) {
         </div>
       </section>
 
-      {/* Trust Section */}
-      <section className="bg-[#111D2E] py-20">
+      <section className="border-t border-[#D7DDD9] bg-[#111816] py-14 text-white">
         <div className="container mx-auto px-4">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-white sm:text-4xl">
-              Why Choose Batlienergy
-            </h2>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                icon: Shield,
-                title: "Fully Certified",
-                desc: "UN38.3, CE, UL, IEC 62619 certified products",
-              },
-              {
-                icon: Globe,
-                title: "Global Shipping",
-                desc: "Fast delivery to 50+ countries worldwide",
-              },
-              {
-                icon: Zap,
-                title: "24/7 Support",
-                desc: "AI-powered customer service always available",
-              },
-              {
-                icon: Truck,
-                title: "Quality Guaranteed",
-                desc: "8+ years of excellence in battery manufacturing",
-              },
-            ].map((item) => (
-              <div key={item.title} className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#00E676]/10">
-                  <item.icon className="h-8 w-8 text-[#00E676]" />
-                </div>
-                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                <p className="mt-2 text-sm text-[#94A3B8]">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-[#0A1628] py-20">
-        <div className="container mx-auto px-4">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#111D2E] to-[#0A1628] border border-[#1E3A5F] p-8 lg:p-12">
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#00E676]/10 blur-3xl" />
-            <div className="relative flex flex-col items-center text-center">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                Ready to Power Your Business?
-              </h2>
-              <p className="mt-4 max-w-[600px] text-[#94A3B8]">
-                Get competitive B2B pricing on premium lithium batteries. 
-                Contact us for custom OEM solutions and bulk orders.
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <h2 className="text-3xl font-bold">Need pricing for a battery project?</h2>
+              <p className="mt-2 max-w-2xl text-[#C9D2CE]">
+                Send target model, quantity, destination country, and certificate requirements.
+                Batlienergy can prepare a product and shipping quote.
               </p>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <Link href={`/${locale}/contact`}>
-                  <Button
-                    size="lg"
-                    className="btn-energy text-[#0A1628] font-semibold"
-                  >
-                    Get Quote Now
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link href={`/${locale}/products`}>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-[#1E3A5F] text-white hover:bg-[#1E3A5F]"
-                  >
-                    Browse Products
-                  </Button>
-                </Link>
-              </div>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link href={`/${locale}/contact`}>
+                <Button size="lg" className="bg-white text-[#111816] hover:bg-[#E8ECEA]">
+                  Request Quote
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href={`/${locale}/products`}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white/25 bg-transparent text-white hover:bg-white/10"
+                >
+                  View Catalog
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+function HeroMetric({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="border-r border-[#D7DDD9] py-4 pr-4 last:border-r-0 sm:pr-6">
+      <p className="text-2xl font-bold text-[#111816]">{value}</p>
+      <p className="mt-1 text-xs uppercase tracking-wide text-[#5E6A65]">{label}</p>
     </div>
   );
 }
