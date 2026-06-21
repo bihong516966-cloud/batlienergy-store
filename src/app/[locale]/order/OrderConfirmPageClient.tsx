@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ArrowRight, CheckCircle2, Clock, Mail, MessageCircle, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,11 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { tx } from "@/lib/i18n/display";
 
 export default function OrderConfirmPageClient({ locale }: { locale: string }) {
-  const [rfqNumber, setRfqNumber] = useState("BL-RFQ-PENDING");
-
-  useEffect(() => {
-    setRfqNumber(`BL-RFQ-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`);
-  }, []);
+  const [rfqNumber] = useState(
+    () => `BL-RFQ-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`
+  );
 
   return (
     <div className="min-h-screen bg-[#F4F6F5]">

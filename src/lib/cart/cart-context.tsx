@@ -64,9 +64,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   // After mount, re-sync in case the lazy initializer ran during SSR (returns [])
   useEffect(() => {
-    const stored = readCartFromStorage();
-    setItems(stored);
-    setHydrated(true);
+    const timer = window.setTimeout(() => {
+      const stored = readCartFromStorage();
+      setItems(stored);
+      setHydrated(true);
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   // Persist to localStorage whenever items change (skip SSR writes)

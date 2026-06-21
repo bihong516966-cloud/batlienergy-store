@@ -14,7 +14,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  products,
   Category,
   getProductBySlug,
   getProductsByCategory,

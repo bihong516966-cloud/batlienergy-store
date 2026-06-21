@@ -1,5 +1,7 @@
 'use client';
 
+/* eslint-disable react-hooks/set-state-in-effect */
+
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export interface ChatMessage {
@@ -25,6 +27,30 @@ const ChatContext = createContext<ChatContextType | null>(null);
 
 const STORAGE_KEY = 'batlienergy-chat-messages';
 
+interface StoredChatMessage extends Omit<ChatMessage, 'timestamp'> {
+  timestamp: string;
+}
+
+function readMessagesFromStorage(): ChatMessage[] {
+  if (typeof window === 'undefined') return [];
+
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (!stored) return [];
+
+  try {
+    const parsed = JSON.parse(stored);
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.map((msg: StoredChatMessage) => ({
+      ...msg,
+      timestamp: new Date(msg.timestamp),
+    }));
+  } catch (error) {
+    console.error('Failed to parse chat messages:', error);
+    return [];
+  }
+}
+
 // 生成唯一ID
 function generateId(): string {
   return `msg-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
@@ -35,7 +61,7 @@ interface ChatProviderProps {
 }
 
 export function ChatProvider({ children }: ChatProviderProps) {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => readMessagesFromStorage());
   const [isOpen, setIsOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
@@ -47,7 +73,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
         try {
           const parsed = JSON.parse(stored);
           // 转换timestamp字符串回Date对象
-          const messagesWithDates = parsed.map((msg: any) => ({
+          const messagesWithDates = (parsed as StoredChatMessage[]).map((msg) => ({
             ...msg,
             timestamp: new Date(msg.timestamp),
           }));

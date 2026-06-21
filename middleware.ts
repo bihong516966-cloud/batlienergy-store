@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { locales, defaultLocale } from './src/lib/i18n/config';
+import { locales, defaultLocale, type Locale } from './src/lib/i18n/config';
+
+function isLocale(value: string): value is Locale {
+  return locales.some((locale) => locale === value);
+}
 
 function getLocaleFromHostname(hostname: string): string | null {
   const subdomain = hostname.split('.')[0];
-  if (locales.includes(subdomain as any)) {
+  if (isLocale(subdomain)) {
     return subdomain;
   }
   return null;

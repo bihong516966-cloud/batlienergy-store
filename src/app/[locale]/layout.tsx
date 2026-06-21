@@ -4,7 +4,11 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import FloatingContact from "@/components/layout/FloatingContact";
 import { Providers } from "@/components/layout/Providers";
-import { defaultLocale } from "@/lib/i18n/config";
+import { defaultLocale, locales, type Locale } from "@/lib/i18n/config";
+
+function isLocale(value: string): value is Locale {
+  return locales.some((locale) => locale === value);
+}
 
 export const metadata: Metadata = {
   title: "Batlienergy - Premium Lithium Battery Solutions",
@@ -26,13 +30,16 @@ export default async function RootLayout({
   children,
   params,
 }: RootLayoutProps) {
-  const { locale = defaultLocale } = await params;
+  const { locale: rawLocale = defaultLocale } = await params;
+  const locale: Locale = isLocale(rawLocale)
+    ? rawLocale
+    : defaultLocale;
 
   return (
     <Providers locale={locale}>
-      <Header locale={locale as any} />
+      <Header locale={locale} />
       <main className="flex-1">{children}</main>
-      <Footer locale={locale as any} />
+      <Footer locale={locale} />
       <FloatingContact locale={locale} />
     </Providers>
   );
