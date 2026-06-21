@@ -17,6 +17,14 @@ import {
   getProductsByCategory,
   Product,
 } from "@/data/products";
+import {
+  badgeLabel,
+  categoryDescription,
+  categoryName,
+  productDescription,
+  specLabel,
+  tx,
+} from "@/lib/i18n/display";
 
 interface ProductCatalogLayoutProps {
   locale: string;
@@ -62,9 +70,9 @@ export function ProductCatalogLayout({
             </div>
 
             <div className="grid grid-cols-3 gap-2 text-sm sm:min-w-[360px]">
-              <CatalogMetric label="Products" value={String(products.length)} />
-              <CatalogMetric label="In stock" value={String(stockedProducts)} />
-              <CatalogMetric label="Lowest MOQ" value={`${lowestMoq} pcs`} />
+              <CatalogMetric label={tx(locale, "Products", "產品數量")} value={String(products.length)} />
+              <CatalogMetric label={tx(locale, "In stock", "現貨款式")} value={String(stockedProducts)} />
+              <CatalogMetric label={tx(locale, "Lowest MOQ", "最低起訂量")} value={`${lowestMoq} pcs`} />
             </div>
           </div>
         </div>
@@ -77,10 +85,12 @@ export function ProductCatalogLayout({
               <div className="border-b border-[#D7DDD9] bg-[#E8ECEA] px-4 py-4">
                 <div className="flex items-center gap-2">
                   <Boxes className="h-4 w-4 text-[#168C5A]" />
-                  <h2 className="font-semibold text-[#111816]">Product Categories</h2>
+                  <h2 className="font-semibold text-[#111816]">
+                    {tx(locale, "Product Categories", "產品分類")}
+                  </h2>
                 </div>
                 <p className="mt-1 text-xs text-[#5E6A65]">
-                  Select a battery family to compare models.
+                  {tx(locale, "Select a battery family to compare models.", "選擇電池系列，快速比較型號與採購條件。")}
                 </p>
               </div>
 
@@ -93,7 +103,9 @@ export function ProductCatalogLayout({
                       : "text-[#36423E] hover:bg-[#F4F6F5] hover:text-[#111816]"
                   }`}
                 >
-                  <span className="font-medium">All Battery Products</span>
+                  <span className="font-medium">
+                    {tx(locale, "All Battery Products", "全部電池產品")}
+                  </span>
                   <span
                     className={`rounded border px-2 py-0.5 text-xs ${
                       !activeCategoryId
@@ -120,13 +132,15 @@ export function ProductCatalogLayout({
                       }`}
                     >
                       <span>
-                        <span className="block font-medium leading-snug">{category.name}</span>
+                        <span className="block font-medium leading-snug">
+                          {categoryName(locale, category)}
+                        </span>
                         <span
                           className={`mt-1 block text-xs leading-snug ${
                             active ? "text-white/70" : "text-[#6B7671]"
                           }`}
                         >
-                          {category.description}
+                          {categoryDescription(locale, category)}
                         </span>
                       </span>
                       <span
@@ -150,19 +164,21 @@ export function ProductCatalogLayout({
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge className="border-0 bg-[#E7F4EE] text-[#126B45]">
-                    {activeCategory ? activeCategory.name : "All categories"}
+                    {activeCategory
+                      ? categoryName(locale, activeCategory)
+                      : tx(locale, "All categories", "全部分類")}
                   </Badge>
                   <Badge className="border border-[#C9D2CE] bg-white text-[#5E6A65]">
-                    {products.length} RFQ-ready models
+                    {products.length} {tx(locale, "RFQ-ready models", "款可詢價型號")}
                   </Badge>
                 </div>
                 <h2 className="mt-3 text-2xl font-bold text-[#111816]">
-                  Product Showcase
+                  {tx(locale, "Product Showcase", "產品展示")}
                 </h2>
               </div>
               <Link href={`/${locale}/contact`}>
                 <Button className="bg-[#111816] text-white hover:bg-[#2A3330]">
-                  Send RFQ
+                  {tx(locale, "Send RFQ", "發送詢價")}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -203,23 +219,23 @@ function ProductCard({ locale, product }: { locale: string; product: Product }) 
           )}
           {product.badge && (
             <Badge className="absolute left-3 top-3 border-0 bg-[#111816] text-white">
-              {product.badge}
+              {badgeLabel(locale, product.badge)}
             </Badge>
           )}
           <div className="absolute bottom-3 right-3 rounded border border-[#D7DDD9] bg-white/95 px-2 py-1 text-xs font-medium text-[#36423E]">
-            MOQ {product.moq} pcs
+            {tx(locale, "MOQ", "起訂量")} {product.moq} pcs
           </div>
         </div>
 
         <CardContent className="p-4">
           <div className="flex items-center justify-between gap-2">
             <Badge className="min-w-0 border-0 bg-[#E7F4EE] text-[#126B45]">
-              <span className="truncate">{category?.name || product.category}</span>
+              <span className="truncate">{category ? categoryName(locale, category) : product.category}</span>
             </Badge>
             {product.inStock && (
               <span className="flex shrink-0 items-center gap-1 text-xs font-medium text-[#126B45]">
                 <CheckCircle2 className="h-3.5 w-3.5" />
-                In stock
+                {tx(locale, "In stock", "現貨")}
               </span>
             )}
           </div>
@@ -228,7 +244,7 @@ function ProductCard({ locale, product }: { locale: string; product: Product }) 
             {product.name}
           </h3>
           <p className="mt-2 line-clamp-2 min-h-[40px] text-sm leading-5 text-[#5E6A65]">
-            {product.description}
+            {productDescription(locale, product)}
           </p>
 
           <div className="mt-4 grid grid-cols-2 gap-2">
@@ -236,7 +252,7 @@ function ProductCard({ locale, product }: { locale: string; product: Product }) 
               .slice(0, 4)
               .map(([key, value]) => (
                 <div key={key} className="rounded-md border border-[#D7DDD9] bg-[#F8FAF9] p-2">
-                  <span className="block text-[11px] text-[#6B7671]">{key}</span>
+                  <span className="block text-[11px] text-[#6B7671]">{specLabel(locale, key)}</span>
                   <span className="mt-0.5 block truncate text-xs font-semibold text-[#111816]">
                     {value}
                   </span>
@@ -246,13 +262,13 @@ function ProductCard({ locale, product }: { locale: string; product: Product }) 
 
           <div className="mt-4 flex items-end justify-between border-t border-[#D7DDD9] pt-4">
             <div>
-              <span className="text-xs text-[#5E6A65]">B2B Price</span>
+              <span className="text-xs text-[#5E6A65]">{tx(locale, "B2B Price", "批發參考價")}</span>
               <p className="text-lg font-bold text-[#126B45]">
                 ${product.price.b2b.min} - ${product.price.b2b.max}
               </p>
             </div>
             <div className="flex items-center gap-1 text-sm font-medium text-[#36423E]">
-              Details
+              {tx(locale, "Details", "詳情")}
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </div>
           </div>

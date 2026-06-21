@@ -22,6 +22,14 @@ import {
 } from "@/data/products";
 import { Locale } from "@/lib/i18n/config";
 import { ProductCatalogLayout } from "@/components/products/ProductCatalogLayout";
+import {
+  badgeLabel,
+  categoryDescription,
+  categoryName,
+  productDescription,
+  specLabel,
+  tx,
+} from "@/lib/i18n/display";
 
 interface ProductDetailPageProps {
   params: Promise<{ locale: Locale; slug: string }>;
@@ -57,14 +65,14 @@ export default async function ProductDetailPage({
               href={`/${locale}`}
               className="hover:text-[#168C5A] transition-colors"
             >
-              Home
+              {tx(locale, "Home", "首頁")}
             </Link>
             <span>/</span>
             <Link
               href={`/${locale}/products`}
               className="hover:text-[#168C5A] transition-colors"
             >
-              Products
+              {tx(locale, "Products", "產品")}
             </Link>
             <span>/</span>
             <span className="text-[#111816]">{product.name}</span>
@@ -95,7 +103,7 @@ export default async function ProductDetailPage({
                 )}
                 {product.badge && (
                   <Badge className="absolute left-4 top-4 bg-[#111816] text-white border-0 font-semibold text-sm px-3 py-1">
-                    {product.badge}
+                  {badgeLabel(locale, product.badge)}
                   </Badge>
                 )}
               </div>
@@ -103,7 +111,9 @@ export default async function ProductDetailPage({
               {/* Certification Tags */}
               {product.certifications.length > 0 && (
                 <div className="flex flex-wrap gap-2">
-                  <span className="text-sm text-[#5E6A65] mr-2">Certifications:</span>
+                  <span className="text-sm text-[#5E6A65] mr-2">
+                    {tx(locale, "Certifications:", "認證文件：")}
+                  </span>
                   {product.certifications.map((cert) => (
                     <Badge
                       key={cert}
@@ -122,7 +132,7 @@ export default async function ProductDetailPage({
               {/* Category */}
               {category && (
                 <Badge className="w-fit bg-[#E7F4EE] text-[#126B45] border-0">
-                  {category.name}
+                  {categoryName(locale, category)}
                 </Badge>
               )}
 
@@ -133,7 +143,7 @@ export default async function ProductDetailPage({
 
               {/* Description */}
               <p className="text-lg text-[#5E6A65] leading-relaxed">
-                {product.description}
+                {productDescription(locale, product)}
               </p>
 
               {/* Specs Table */}
@@ -143,10 +153,10 @@ export default async function ProductDetailPage({
                     <TableHeader>
                       <TableRow className="border-b border-[#D7DDD9] hover:bg-transparent">
                         <TableHead className="bg-[#E8ECEA] text-[#111816] font-semibold h-10">
-                          Specification
+                          {tx(locale, "Specification", "規格")}
                         </TableHead>
                         <TableHead className="bg-[#E8ECEA] text-[#111816] font-semibold h-10">
-                          Details
+                          {tx(locale, "Details", "內容")}
                         </TableHead>
                       </TableRow>
                     </TableHeader>
@@ -157,7 +167,7 @@ export default async function ProductDetailPage({
                           className="border-b border-[#D7DDD9] hover:bg-[#F4F6F5]"
                         >
                           <TableCell className="text-[#5E6A65] font-medium py-3">
-                            {key}
+                            {specLabel(locale, key)}
                           </TableCell>
                           <TableCell className="text-[#111816] py-3">
                             {value}
@@ -174,29 +184,29 @@ export default async function ProductDetailPage({
                 <div className="grid gap-4 sm:grid-cols-2">
                   {/* B2B Price */}
                   <div className="rounded-md border border-[#D7DDD9] bg-[#F8FAF9] p-4">
-                    <span className="text-sm text-[#5E6A65]">B2B Price</span>
+                    <span className="text-sm text-[#5E6A65]">{tx(locale, "B2B Price", "批發參考價")}</span>
                     <p className="mt-1 text-2xl font-bold text-[#126B45]">
                       ${product.price.b2b.min} - ${product.price.b2b.max}
                     </p>
                     <span className="text-xs text-[#5E6A65]">
-                      {product.price.b2b.currency} per unit
+                      {product.price.b2b.currency} {tx(locale, "per unit", "每件")}
                     </span>
                   </div>
 
                   {/* Retail Price (if available) */}
                   {product.price.retail ? (
                     <div className="rounded-md border border-[#D7DDD9] bg-[#F8FAF9] p-4">
-                      <span className="text-sm text-[#5E6A65]">Retail Price</span>
+                      <span className="text-sm text-[#5E6A65]">{tx(locale, "Retail Price", "零售參考價")}</span>
                       <p className="mt-1 text-2xl font-bold text-[#111816]">
                         ${product.price.retail.min} - ${product.price.retail.max}
                       </p>
                       <span className="text-xs text-[#5E6A65]">
-                        {product.price.retail.currency} per unit
+                        {product.price.retail.currency} {tx(locale, "per unit", "每件")}
                       </span>
                     </div>
                   ) : (
                     <div className="rounded-md border border-[#D7DDD9] bg-[#F8FAF9] p-4">
-                      <span className="text-sm text-[#5E6A65]">MOQ</span>
+                      <span className="text-sm text-[#5E6A65]">{tx(locale, "MOQ", "起訂量")}</span>
                       <div className="mt-1 flex items-center gap-2">
                         <Package className="h-6 w-6 text-[#168C5A]" />
                         <p className="text-2xl font-bold text-[#111816]">
@@ -204,7 +214,7 @@ export default async function ProductDetailPage({
                         </p>
                       </div>
                       <span className="text-xs text-[#5E6A65]">
-                        Minimum order quantity
+                        {tx(locale, "Minimum order quantity", "最低起訂數量")}
                       </span>
                     </div>
                   )}
@@ -215,7 +225,7 @@ export default async function ProductDetailPage({
                   <div className="mt-4 flex items-center gap-2 rounded-md border border-[#D7DDD9] bg-[#F8FAF9] p-3">
                     <Package className="h-5 w-5 text-[#168C5A]" />
                     <span className="text-sm text-[#5E6A65]">
-                      Minimum Order Quantity:{" "}
+                      {tx(locale, "Minimum Order Quantity:", "最低起訂量：")}{" "}
                       <span className="font-semibold text-[#111816]">
                         {product.moq} pcs
                       </span>
@@ -231,7 +241,7 @@ export default async function ProductDetailPage({
                     size="lg"
                     className="w-full bg-[#111816] text-white hover:bg-[#2A3330] font-semibold h-12"
                   >
-                    Request Quote
+                    {tx(locale, "Request Quote", "索取報價")}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
@@ -247,7 +257,7 @@ export default async function ProductDetailPage({
                     className="w-full border-[#25D366] bg-white text-[#1A8F4D] hover:bg-[#E7F4EE] h-12"
                   >
                     <MessageCircle className="mr-2 h-4 w-4" />
-                    WhatsApp Inquiry
+                    WhatsApp {tx(locale, "Inquiry", "詢價")}
                   </Button>
                 </a>
               </div>
@@ -263,10 +273,10 @@ export default async function ProductDetailPage({
             <div className="mb-8 flex items-end justify-between">
               <div>
                 <h2 className="text-2xl font-bold text-[#111816] sm:text-3xl">
-                  Related Products
+                  {tx(locale, "Related Products", "相關產品")}
                 </h2>
                 <p className="mt-2 text-[#5E6A65]">
-                  More from {category?.name}
+                  {tx(locale, "More from", "更多")} {category ? categoryName(locale, category) : ""}
                 </p>
               </div>
               <Link href={`/${locale}/products`} className="hidden sm:flex">
@@ -274,7 +284,7 @@ export default async function ProductDetailPage({
                   variant="outline"
                   className="border-[#C9D2CE] bg-white text-[#111816] hover:bg-[#E8ECEA]"
                 >
-                  View All
+                  {tx(locale, "View All", "查看全部")}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -303,13 +313,13 @@ export default async function ProductDetailPage({
                     </div>
                     <CardContent className="p-4">
                       <Badge className="mb-2 bg-[#E7F4EE] text-[#126B45] border-0">
-                        {category?.name}
+                        {category ? categoryName(locale, category) : ""}
                       </Badge>
                       <h3 className="font-semibold text-[#111816] group-hover:text-[#168C5A] transition-colors line-clamp-1">
                         {rp.name}
                       </h3>
                       <p className="mt-1 text-sm text-[#5E6A65] line-clamp-2">
-                        {rp.description}
+                        {productDescription(locale, rp)}
                       </p>
                       <div className="mt-3 flex items-center justify-between">
                         <span className="text-sm font-bold text-[#126B45]">
@@ -337,7 +347,7 @@ export default async function ProductDetailPage({
               className="text-[#5E6A65] hover:text-[#168C5A]"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to All Products
+              {tx(locale, "Back to All Products", "返回全部產品")}
             </Button>
           </Link>
         </div>
@@ -359,9 +369,9 @@ function CategoryListingPage({
     <ProductCatalogLayout
       locale={locale}
       activeCategoryId={category.id}
-      title={category.name}
-      eyebrow="Battery category catalog"
-      description={category.description}
+      title={categoryName(locale, category)}
+      eyebrow={tx(locale, "Battery category catalog", "電池分類目錄")}
+      description={categoryDescription(locale, category)}
       products={categoryProducts}
     />
   );

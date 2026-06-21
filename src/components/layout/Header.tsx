@@ -12,17 +12,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Locale, localeNames } from "@/lib/i18n/config";
+import { tx } from "@/lib/i18n/display";
 
 interface HeaderProps {
   locale: Locale;
 }
 
 const navItems = [
-  { href: "/products", label: "Products" },
-  { href: "/products/ebike", label: "E-Bike" },
-  { href: "/products/home-storage", label: "Energy Storage" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/products", label: "Products", zh: "產品目錄" },
+  { href: "/products/ebike", label: "E-Bike", zh: "電動車電池" },
+  { href: "/products/home-storage", label: "Energy Storage", zh: "儲能系統" },
+  { href: "/about", label: "About", zh: "關於我們" },
+  { href: "/contact", label: "Contact", zh: "聯絡詢價" },
 ];
 
 export function Header({ locale }: HeaderProps) {
@@ -38,7 +39,7 @@ export function Header({ locale }: HeaderProps) {
           <div className="leading-tight">
             <span className="block text-xl font-bold text-[#111816]">Batlienergy</span>
             <span className="hidden text-[11px] uppercase tracking-wide text-[#5E6A65] sm:block">
-              Battery supply
+              {tx(locale, "Battery supply", "電池供應")}
             </span>
           </div>
         </Link>
@@ -50,7 +51,7 @@ export function Header({ locale }: HeaderProps) {
               href={`/${locale}${item.href}`}
               className="text-sm font-medium text-[#5E6A65] transition-colors hover:text-[#168C5A]"
             >
-              {item.label}
+              {tx(locale, item.label, item.zh)}
             </Link>
           ))}
         </nav>
@@ -88,7 +89,7 @@ export function Header({ locale }: HeaderProps) {
 
           <Link href={`/${locale}/contact`}>
             <Button className="hidden bg-[#111816] text-white hover:bg-[#2A3330] sm:inline-flex">
-              Get Quote
+              {tx(locale, "Get Quote", "索取報價")}
             </Button>
           </Link>
 
@@ -105,12 +106,12 @@ export function Header({ locale }: HeaderProps) {
                     onClick={() => setIsOpen(false)}
                     className="text-lg font-medium text-[#5E6A65] hover:text-[#168C5A]"
                   >
-                    {item.label}
+                    {tx(locale, item.label, item.zh)}
                   </Link>
                 ))}
                 <Link href={`/${locale}/contact`} onClick={() => setIsOpen(false)}>
                   <Button className="mt-4 w-full bg-[#111816] text-white hover:bg-[#2A3330]">
-                    Request Quote
+                    {tx(locale, "Request Quote", "索取報價")}
                   </Button>
                 </Link>
               </div>

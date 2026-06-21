@@ -4,8 +4,8 @@ import OrderConfirmPageClient from "./OrderConfirmPageClient";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "zh" ? "订单确认 - Batlienergy" : "Order Confirmation - Batlienergy",
-    description: "Your order has been submitted successfully",
+    title: locale === "zh" ? "詢價已提交 - Batlienergy" : "Order Confirmation - Batlienergy",
+    description: locale === "zh" ? "您的電池採購詢價已提交" : "Your quote request has been submitted successfully",
   };
 }
 

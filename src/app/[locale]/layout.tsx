@@ -29,11 +29,11 @@ export default async function RootLayout({
   const { locale = defaultLocale } = await params;
 
   return (
-    <Providers>
+    <Providers locale={locale}>
       <Header locale={locale as any} />
       <main className="flex-1">{children}</main>
       <Footer locale={locale as any} />
-      <FloatingContact />
+      <FloatingContact locale={locale} />
     </Providers>
   );
 }

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useChat } from "./ChatContext";
 import { ChatMessage, generateAIResponse } from "@/lib/chatbot/knowledge";
+import { tx } from "@/lib/i18n/display";
 
 function MessageBubble({ message }: { message: ChatMessage }) {
   const isUser = message.role === "user";
@@ -38,11 +39,11 @@ function MessageBubble({ message }: { message: ChatMessage }) {
   );
 }
 
-function QuickActions({ onAction }: { onAction: (message: string) => void }) {
+function QuickActions({ locale, onAction }: { locale: string; onAction: (message: string) => void }) {
   const actions = [
-    "I need a bulk quote",
-    "Which battery fits my application?",
-    "What certificates are available?",
+    tx(locale, "I need a bulk quote", "我需要批發報價"),
+    tx(locale, "Which battery fits my application?", "哪種電池適合我的用途？"),
+    tx(locale, "What certificates are available?", "可以提供哪些認證文件？"),
   ];
 
   return (
@@ -60,7 +61,7 @@ function QuickActions({ onAction }: { onAction: (message: string) => void }) {
   );
 }
 
-function MessageList({ messages, isTyping }: { messages: ChatMessage[]; isTyping: boolean }) {
+function MessageList({ locale, messages, isTyping }: { locale: string; messages: ChatMessage[]; isTyping: boolean }) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,9 +74,11 @@ function MessageList({ messages, isTyping }: { messages: ChatMessage[]; isTyping
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-[#E7F4EE]">
           <Sparkles className="h-6 w-6 text-[#168C5A]" />
         </div>
-        <h3 className="text-lg font-semibold text-[#111816]">Batlienergy RFQ Assistant</h3>
+        <h3 className="text-lg font-semibold text-[#111816]">
+          {tx(locale, "Batlienergy RFQ Assistant", "Batlienergy 詢價助手")}
+        </h3>
         <p className="mt-2 text-sm leading-relaxed text-[#5E6A65]">
-          Ask about battery models, MOQ, certificates, shipping, or quote preparation.
+          {tx(locale, "Ask about battery models, MOQ, certificates, shipping, or quote preparation.", "可詢問電池型號、起訂量、認證、運輸或報價準備。")}
         </p>
       </div>
     );
@@ -89,7 +92,7 @@ function MessageList({ messages, isTyping }: { messages: ChatMessage[]; isTyping
       {isTyping && (
         <div className="flex items-center gap-2 text-sm text-[#5E6A65]">
           <Bot className="h-4 w-4 text-[#168C5A]" />
-          Preparing a reply...
+          {tx(locale, "Preparing a reply...", "正在整理回覆...")}
         </div>
       )}
       <div ref={bottomRef} />
@@ -97,7 +100,7 @@ function MessageList({ messages, isTyping }: { messages: ChatMessage[]; isTyping
   );
 }
 
-export default function AIChatbot() {
+export default function AIChatbot({ locale }: { locale: string }) {
   const { messages, addMessage, clearMessages, isOpen, closeChat, openChat, isTyping, setIsTyping } = useChat();
   const [input, setInput] = useState("");
 
@@ -128,7 +131,7 @@ export default function AIChatbot() {
           className="flex items-center gap-2 rounded-full border border-[#D7DDD9] bg-white px-4 py-3 text-sm font-semibold text-[#111816] shadow-lg hover:border-[#168C5A] hover:text-[#168C5A]"
         >
           <MessageCircle className="h-5 w-5" />
-          RFQ Assistant
+          {tx(locale, "RFQ Assistant", "詢價助手")}
         </button>
       </div>
     );
@@ -144,8 +147,8 @@ export default function AIChatbot() {
               <Sparkles className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-[#111816]">RFQ Assistant</h3>
-              <p className="text-xs text-[#5E6A65]">Battery sourcing support</p>
+              <h3 className="font-semibold text-[#111816]">{tx(locale, "RFQ Assistant", "詢價助手")}</h3>
+              <p className="text-xs text-[#5E6A65]">{tx(locale, "Battery sourcing support", "電池採購支援")}</p>
             </div>
           </div>
           <div className="flex items-center gap-1">
@@ -158,11 +161,11 @@ export default function AIChatbot() {
           </div>
         </div>
 
-        <MessageList messages={messages} isTyping={isTyping} />
+        <MessageList locale={locale} messages={messages} isTyping={isTyping} />
 
         {!messages.length && (
           <div className="border-t border-[#D7DDD9] bg-[#F8FAF9] p-4">
-            <QuickActions onAction={sendMessage} />
+            <QuickActions locale={locale} onAction={sendMessage} />
           </div>
         )}
 
@@ -171,7 +174,7 @@ export default function AIChatbot() {
             value={input}
             onChange={(event) => setInput(event.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about products, MOQ, shipping..."
+            placeholder={tx(locale, "Ask about products, MOQ, shipping...", "詢問產品、起訂量、運輸...")}
             disabled={isTyping}
             className="border-[#C9D2CE] bg-white text-[#111816]"
           />

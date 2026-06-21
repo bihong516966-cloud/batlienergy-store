@@ -1,7 +1,5 @@
 'use client';
 
-// 产品知识库 - 为AI聊天机器人提供锂电池专业知识
-
 export interface FAQItem {
   keywords: string[];
   response: string;
@@ -14,300 +12,147 @@ export interface ChatMessage {
   timestamp: Date;
 }
 
-// B2B锂电池产品常见问答
 export const productFAQ: FAQItem[] = [
-  // 18650圆柱形电池
   {
-    keywords: ['18650', 'cylindrical', 'cell', '圆柱', '圆柱形'],
-    response: `我们提供来自三星SDI、LG、松下和三洋等顶级品牌的高品质18650圆柱形电芯。我们的B2B批发价从$0.80/只起（订购1000只以上）。
+    keywords: ['18650', '21700', 'cylindrical', 'cell', '圓柱', '電芯'],
+    response: `我們可協助採購主流 18650 / 21700 圓柱電芯，例如 Samsung、LG、Molicel、EVE 等品牌或同級替代方案。
 
-🔥 热门型号：
-• 三星 25R - 2500mAh, 25A持续放电
-• 三星 30Q - 3000mAh, 15A持续放电  
-• LG HG2 - 3000mAh, 20A持续放电
-• 松下 NCR18650B - 3400mAh, 容量型
+常見用途：
+• 電動工具
+• 電動自行車
+• FPV / 高倍率設備
+• 移動電源與電子產品
 
-批量采购可享阶梯价格优惠，欢迎询价！`,
+請提供目標型號、數量、用途與目的地國家，我們會確認庫存、起訂量、認證與出口方式。`,
   },
-
-  // LiFePO4磷酸铁锂电池
   {
-    keywords: ['lifepo4', 'life po4', 'lithium iron', '磷酸铁', '铁锂'],
-    response: `我们的LiFePO4磷酸铁锂电池非常适合储能系统、电动汽车和太阳能应用。
+    keywords: ['lifepo4', 'life po4', 'lithium iron', '磷酸鐵鋰', '儲能', '方形'],
+    response: `磷酸鐵鋰產品適合家用儲能、工商業儲能、太陽能系統、房車與備電項目。
 
-✨ 产品优势：
-• 卓越的热稳定性，安全性高
-• 超长循环寿命（2000+次循环）
-• 容量范围：50Ah - 400Ah
-• 可定制电压和容量配置
-• 支持OEM/ODM服务
+採購時建議提供：
+• 容量與電壓需求
+• 目標循環壽命
+• 是否需要 UN38.3 / CE / UL / IEC62619 / MSDS
+• 目的地國家與運輸方式
 
-典型应用：太阳能储能、家庭储能柜、UPS备用电源、房车电池等。`,
+我們可按電芯、模組或完整系統協助整理報價。`,
   },
-
-  // 电动车电池
   {
-    keywords: ['ebike', 'e-bike', 'electric bike', '电动车', '电单车', '电动自行车'],
-    response: `我们专业生产电动车电池组，容量从10Ah到30Ah不等。
+    keywords: ['ebike', 'e-bike', 'electric bike', '電動自行車', '電動車', '滑板車'],
+    response: `電動自行車電池常見規格包括 36V、48V、52V，容量可依續航需求選擇 10Ah、15Ah、20Ah 或更高。
 
-🛵 产品规格：
-• 电压选项：36V, 48V, 72V
-• 容量范围：10Ah - 30Ah
-• 所有电池组均配备BMS保护板
-• IP67防水等级
-• CE/UL认证
-
-🔥 热销型号：48V 15Ah 隐形电动车电池 - $189/套起（10套起订）`,
+請提供車型、電壓、容量、外殼形式、接頭、BMS 電流、數量與目的地，我們會協助確認可供方案。`,
   },
-
-  // 太阳能储能
   {
-    keywords: ['solar', '储能', 'storage', 'solar storage', '太阳能', '家庭储能'],
-    response: `我们的太阳能储能系统解决方案涵盖从小型家用到大型工业应用。
+    keywords: ['quote', 'price', 'rfq', '報價', '價格', '詢價', '批發'],
+    response: `可以，請提供以下資料以便準確報價：
 
-☀️ 推荐配置：
-• 家用储能：堆叠式LiFePO4电池（5-20kWh）
-• 壁挂式设计，节省空间
-• 兼容主流逆变器品牌（Victron, SMA, Solis等）
-• 10年质保，循环寿命6000+次
+• 產品型號或應用場景
+• 採購數量
+• 目的地國家 / 地區
+• 認證需求，例如 UN38.3、CE、UL、MSDS
+• 是否需要樣品、批量訂單或 OEM
 
-🔥 热销：48V 100Ah 壁挂式储能电池 - $899/套起`,
+收到資料後，銷售會確認庫存、起訂量、交期、運輸與報價。`,
   },
-
-  // 询价和报价
   {
-    keywords: ['quote', 'price', '报价', '价格', '询价', 'cost'],
-    response: `感谢您对BatlieEnergy产品的关注！
+    keywords: ['certification', 'cert', 'ul', 'ce', 'msds', 'un38.3', '認證', '文件'],
+    response: `常見可配合的文件包括 UN38.3、CE、UL、IEC62619、MSDS、RoHS 等，具體取決於產品型號與供應批次。
 
-📋 我们的报价流程：
-1. 提供您的具体需求（型号/容量/电压/数量）
-2. 24小时内给出详细报价
-3. 确认后3-5天内发货
-4. 提供FOB/CIF/DDP等多种贸易条款
-
-💰 付款方式：T/T, L/C, PayPal, Alibaba Trade Assurance
-
-批量订单可享受更优惠的价格，请告诉我们您的需求！`,
+如果您的市場在香港、台灣、新加坡、歐美或東南亞，建議在詢價時先說明目的地與平台/清關要求。`,
   },
-
-  // 认证和资质
   {
-    keywords: ['certification', 'cert', 'ul', 'ce', '认证', '资质', '证书'],
-    response: `我们产品已通过多项国际认证：
+    keywords: ['moq', 'minimum', 'quantity', '起訂', '最小訂購', '數量'],
+    response: `不同產品的起訂量不同：
 
-✅ 电池认证：
-• CE认证（欧盟）
-• UL1642 / UL2054（美国）
-• UN38.3（运输安全）
-• RoHS合规
-• MSDS报告
+• 圓柱電芯：通常 50 至 200 pcs 起
+• 方形磷酸鐵鋰：通常按箱或模組起訂
+• 電動自行車 / 工具電池：通常 5 至 20 套起
+• 客製化 OEM：依結構與開模需求確認
 
-✅ 工厂认证：
-• ISO9001质量管理体系
-• ISO14001环境管理体系
-• BSCI社会责任感审核
-
-如需特定认证文件，请联系我们的销售团队。`,
+請告訴我們目標數量，我們會按產品線回覆實際 MOQ。`,
   },
-
-  // 最小订购量
   {
-    keywords: ['moq', 'minimum', 'quantity', '起订', '最小订购', '批量', '数量'],
-    response: `我们的最小订购量（MOQ）根据产品类型而定：
+    keywords: ['shipping', 'delivery', 'logistics', '運輸', '出貨', '物流', '香港', '台灣', '新加坡'],
+    response: `鋰電池運輸需要依產品類型、瓦時、數量、包裝與目的地確認。
 
-📦 标准MOQ：
-• 18650电芯：1000只/型号
-• LiFePO4电池组：10套
-• 电动车电池：10套
-• 定制产品：50套起
-
-💡 大批量订单（10000+）可享额外折扣，欢迎洽谈长期合作协议！`,
+常見方式包括海運、空運、專線或快遞。若目的地是香港、台灣、新加坡或其他海外華人市場，請提供地址國家/地區與預計數量，我們會評估可行運輸方案。`,
   },
-
-  // 样品政策
   {
-    keywords: ['sample', '样品', '试用'],
-    response: `我们提供样品服务：
+    keywords: ['custom', 'oem', 'odm', '客製', '定製', '訂製'],
+    response: `可以評估 OEM / ODM 電池包項目。請提供：
 
-📦 样品政策：
-• 大部分产品支持样品订购
-• 样品价格：零售价的1.5-2倍
-• 样品运费到付
-• 批量订单可抵扣样品费用
+• 電壓與容量
+• 尺寸與外殼要求
+• 最大放電電流
+• BMS、接頭與線材
+• 目標應用與認證需求
 
-⏱️ 样品准备时间：3-5个工作日
-
-部分产品有库存，可快速发货！`,
+我們會先確認技術可行性、樣品週期與批量起訂量。`,
   },
-
-  // 运输和物流
   {
-    keywords: ['shipping', 'delivery', 'logistics', '运输', '发货', '物流', '快递'],
-    response: `我们提供灵活的运输方案：
+    keywords: ['contact', 'phone', 'email', 'whatsapp', '聯絡', '電話', '電郵'],
+    response: `您可以直接聯絡 Batlienergy 銷售：
 
-🚢 运输方式：
-• 空运：5-7个工作日（急单）
-• 海运：25-35个工作日（大批量）
-• 快递（DHL/FedEx/UPS）：3-5个工作日
+WhatsApp：+86 138 0013 8000
+Email：julian@batelithium.com
+地點：中國深圳
 
-📍 发货港口：中国深圳/广州/香港
-
-我们可协助处理出口文件、清关手续，提供FOB/CIF/DDP等贸易条款。`,
-  },
-
-  // 质量和保修
-  {
-    keywords: ['warranty', 'guarantee', 'quality', '保修', '质保', '质量'],
-    response: `我们严格把控产品质量：
-
-✅ 质量保证：
-• 100%出厂测试，包括容量、内阻、安全测试
-• 全程质量追溯
-• 不良率<0.1%
-
-🛡️ 保修政策：
-• 电芯：12个月
-• 电池组（含BMS）：24个月
-• 定制产品：根据协议
-
-如出现质量问题，我们提供退换货服务。`,
-  },
-
-  // BMS和保护功能
-  {
-    keywords: ['bms', 'protection', 'management system', '保护板', '保护', '管理系统'],
-    response: `所有电池组均配备高品质BMS保护系统：
-
-🔧 BMS功能：
-• 过充保护（OVP）
-• 过放保护（UVP）
-• 短路保护（SCP）
-• 过流保护（OCP）
-• 温度保护（OTP/UTP）
-• 均衡功能（被动均衡/主动均衡）
-
-可选功能：
-• 蓝牙/App监控
-• GPS定位
-• 远程锁机
-• CAN总线通信`,
-  },
-
-  // 定制服务
-  {
-    keywords: ['custom', 'oem', 'odm', '定制', '贴牌', '定制化'],
-    response: `我们提供全面的OEM/ODM定制服务：
-
-🔧 定制选项：
-• 容量定制（从几Ah到上千Ah）
-• 电压定制（3.2V-800V）
-• 尺寸和形状定制
-• 品牌LOGO印刷
-• 包装定制
-• 功能定制（蓝牙、GPS等）
-
-📋 定制流程：
-1. 需求沟通 → 2. 方案确认 → 3. 样品制作 → 4. 确认订单 → 5. 批量生产
-
-定制产品MOQ通常为50套起。`,
-  },
-
-  // 付款条款
-  {
-    keywords: ['payment', 'pay', '付款', '支付', 'terms'],
-    response: `我们接受多种付款方式：
-
-💳 付款选项：
-• T/T 电汇（30%预付，70%发货前付清）
-• L/C 信用证（适合大额订单）
-• PayPal（适合小额样品订单）
-• Alibaba Trade Assurance（交易保障）
-• 西联汇款
-
-💡 信用付款：长期合作客户可申请赊账额度。`,
-  },
-
-  // 联系方式
-  {
-    keywords: ['contact', 'phone', 'email', 'whatsapp', '联系', '电话', '邮箱'],
-    response: `联系我们：
-
-📞 WhatsApp/电话：+86 138 0013 8000
-📧 邮箱：julian@batelithium.com
-🏢 公司：深圳巴特能源有限公司
-
-⏰ 服务时间：周一至周六 9:00-18:00（中国时间）
-
-我们会尽快回复您的咨询！`,
+建議同時提供產品型號、數量、目的地與認證需求，方便更快回覆。`,
   },
 ];
 
-// 快速回复模板
 export const quickReplies = [
   {
     id: 'product-inquiry',
-    label: '📦 产品咨询',
-    icon: '📦',
-    placeholder: '我想了解你们的18650电池产品',
+    label: '產品諮詢',
+    icon: 'box',
+    placeholder: '我想了解 18650 / 21700 電芯產品',
   },
   {
     id: 'get-quote',
-    label: '💰 获取报价',
-    icon: '💰',
-    placeholder: '请给我一份48V 100Ah电池的报价',
+    label: '索取報價',
+    icon: 'quote',
+    placeholder: '請提供 48V 100Ah 電池的批發報價',
   },
   {
     id: 'order-status',
-    label: '📋 订单状态',
-    icon: '📋',
-    placeholder: '查询我的订单状态',
+    label: '詢價狀態',
+    icon: 'list',
+    placeholder: '我想跟進我的詢價狀態',
   },
   {
     id: 'contact-agent',
-    label: '📞 联系客服',
-    icon: '📞',
-    placeholder: '我想和人工客服沟通',
+    label: '聯絡銷售',
+    icon: 'contact',
+    placeholder: '我想與銷售人員聯絡',
   },
 ];
 
-// 生成AI回复
 export function generateAIResponse(userMessage: string): string {
   const lowerMessage = userMessage.toLowerCase();
 
-  // 遍历FAQ查找匹配
   for (const faq of productFAQ) {
-    if (faq.keywords.some((keyword) => lowerMessage.includes(keyword))) {
+    if (faq.keywords.some((keyword) => lowerMessage.includes(keyword.toLowerCase()))) {
       return faq.response;
     }
   }
 
-  // 默认回复
-  return `感谢您的咨询！我们的锂电池专家团队随时为您服务。
+  return `感謝您的諮詢。為了給您更準確的電池報價，請提供以下資料：
 
-为了给您更准确的报价，请提供以下信息：
+• 產品型號或應用場景
+• 電壓、容量或尺寸需求
+• 採購數量
+• 目的地國家 / 地區
+• 認證需求，例如 UN38.3、CE、UL、MSDS
 
-• 📍 应用场景（电动车、太阳能储能、电动工具等）
-• ⚡ 所需容量和电压
-• 📦 订购数量
-• 💰 目标价格（如有）
-
-您也可以直接联系我们：
-📞 WhatsApp: +86 138 0013 8000
-📧 邮箱: julian@batelithium.com
-
-我们将尽快回复您！`;
+您也可以直接聯絡：
+WhatsApp：+86 138 0013 8000
+Email：julian@batelithium.com`;
 }
 
-// 欢迎消息
-export const welcomeMessage = `👋 您好！欢迎来到BatlieEnergy！
+export const welcomeMessage = `您好，歡迎來到 Batlienergy。
 
-我是您的AI智能助手，专门为您提供锂电池产品咨询和报价服务。
+我可以協助您了解鋰電池產品、起訂量、認證文件、運輸方式與批發詢價流程。
 
-我可以帮您：
-
-🔋 **产品推荐** - 根据您的需求推荐合适的电池产品
-💰 **获取报价** - 快速获取B2B批发价格
-📋 **订单查询** - 查询订单状态和物流信息
-❓ **技术咨询** - 解答电池技术相关问题
-
-请告诉我您的需求，或选择以下快捷操作：`;
+請告訴我您的產品用途、目標型號或採購數量。`;

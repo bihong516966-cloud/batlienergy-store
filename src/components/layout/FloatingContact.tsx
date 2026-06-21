@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { MessageCircle, Phone, Mail } from 'lucide-react';
+import { tx } from '@/lib/i18n/display';
 
-export default function FloatingContact() {
+export default function FloatingContact({ locale }: { locale: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -21,7 +22,7 @@ export default function FloatingContact() {
           href="https://wa.me/8613800138000"
           target="_blank"
           rel="noopener noreferrer"
-          title="WhatsApp Chat"
+          title={tx(locale, "WhatsApp Chat", "WhatsApp 聯絡")}
           className="flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
           style={{ backgroundColor: '#25D366' }}
         >
@@ -31,7 +32,7 @@ export default function FloatingContact() {
         {/* Email Button */}
         <a
           href="mailto:julian@batelithium.com"
-          title="Email Us"
+          title={tx(locale, "Email Us", "電郵聯絡")}
           className="flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
           style={{ backgroundColor: '#111816' }}
         >
@@ -42,7 +43,7 @@ export default function FloatingContact() {
       {/* Main Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        title={isOpen ? 'Close' : 'Contact Us'}
+        title={isOpen ? tx(locale, 'Close', '關閉') : tx(locale, 'Contact Us', '聯絡我們')}
         className="flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl cursor-pointer"
         style={{
           backgroundColor: '#168C5A',
@@ -50,7 +51,7 @@ export default function FloatingContact() {
             ? '0 4px 20px rgba(22, 140, 90, 0.34)'
             : '0 4px 20px rgba(22, 140, 90, 0.26)',
         }}
-        aria-label={isOpen ? 'Close contact menu' : 'Open contact menu'}
+        aria-label={isOpen ? tx(locale, 'Close contact menu', '關閉聯絡選單') : tx(locale, 'Open contact menu', '開啟聯絡選單')}
       >
         <MessageCircle className="h-6 w-6 text-white" />
       </button>
