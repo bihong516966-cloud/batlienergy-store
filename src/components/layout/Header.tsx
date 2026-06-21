@@ -20,7 +20,7 @@ interface HeaderProps {
 
 const navItems = [
   { href: "/products", label: "Products", zh: "產品目錄" },
-  { href: "/products/ebike", label: "E-Bike", zh: "電動車電池" },
+  { href: "/products/ebike", label: "E-Bike", zh: "電動自行車電池" },
   { href: "/products/home-storage", label: "Energy Storage", zh: "儲能系統" },
   { href: "/about", label: "About", zh: "關於我們" },
   { href: "/contact", label: "Contact", zh: "聯絡詢價" },
@@ -39,7 +39,7 @@ export function Header({ locale }: HeaderProps) {
           <div className="leading-tight">
             <span className="block text-xl font-bold text-[#111816]">Batlienergy</span>
             <span className="hidden text-[11px] uppercase tracking-wide text-[#5E6A65] sm:block">
-              {tx(locale, "Battery supply", "電池供應")}
+              {tx(locale, "Lithium battery supply", "鋰電池供應")}
             </span>
           </div>
         </Link>

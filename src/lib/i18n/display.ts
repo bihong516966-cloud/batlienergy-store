@@ -10,7 +10,7 @@ export function tx(locale: string, english: string, traditional: string) {
 
 const categoryZh: Record<string, { name: string; description: string }> = {
   cylindrical: {
-    name: "圓柱電芯（18650 / 21700）",
+    name: "圓柱鋰電芯（18650 / 21700）",
     description: "Samsung、LG、Molicel、EVE 等主流高倍率電芯，適用於電動工具、電動自行車與電子產品。",
   },
   lifepo4: {
@@ -84,7 +84,7 @@ const badgeZh: Record<string, string> = {
 const productDescriptionZh: Record<string, string> = {
   "samsung-25r": "主流 18650 動力電芯，常用於電動工具與電動自行車，容量與放電能力平衡。",
   "samsung-30q": "高容量 18650 電芯，適合手電筒、電子設備與移動電源等應用。",
-  "samsung-35e": "超高容量 18650 電芯，適合低耗電設備、醫療設備與筆電類應用。",
+  "samsung-35e": "超高容量 18650 電芯，適合低耗電設備、醫療設備與儲能類應用。",
   "samsung-50e": "高容量 21700 電芯，適合儲能、電動車與高性能電池組。",
   "lg-hg2": "可靠高倍率 18650 電芯，適合電動工具、電動自行車與高電流應用。",
   "molicel-p28a": "超高放電 18650 電芯，適合 FPV、電子煙及高功率設備。",

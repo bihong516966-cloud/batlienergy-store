@@ -7,16 +7,11 @@ import {
   CheckCircle2,
   Factory,
   ShieldCheck,
-  Zap,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  categories,
-  getProductsByCategory,
-  Product,
-} from "@/data/products";
+import { categories, getProductsByCategory, Product } from "@/data/products";
 import {
   badgeLabel,
   categoryDescription,
@@ -70,27 +65,27 @@ export function ProductCatalogLayout({
             </div>
 
             <div className="grid grid-cols-3 gap-2 text-sm sm:min-w-[360px]">
-              <CatalogMetric label={tx(locale, "Products", "產品數量")} value={String(products.length)} />
-              <CatalogMetric label={tx(locale, "In stock", "現貨款式")} value={String(stockedProducts)} />
-              <CatalogMetric label={tx(locale, "Lowest MOQ", "最低起訂量")} value={`${lowestMoq} pcs`} />
+              <CatalogMetric label={tx(locale, "Models", "型號")} value={String(products.length)} />
+              <CatalogMetric label={tx(locale, "In stock", "現貨款")} value={String(stockedProducts)} />
+              <CatalogMetric label={tx(locale, "MOQ from", "起訂量")} value={`${lowestMoq} pcs`} />
             </div>
           </div>
         </div>
       </section>
 
       <section className="py-8">
-        <div className="container mx-auto grid gap-6 px-4 lg:grid-cols-[280px_minmax(0,1fr)]">
+        <div className="container mx-auto grid gap-6 px-4 lg:grid-cols-[300px_minmax(0,1fr)]">
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <div className="overflow-hidden rounded-lg border border-[#D7DDD9] bg-white shadow-sm">
+            <div className="overflow-hidden rounded-md border border-[#D7DDD9] bg-white shadow-sm">
               <div className="border-b border-[#D7DDD9] bg-[#E8ECEA] px-4 py-4">
                 <div className="flex items-center gap-2">
                   <Boxes className="h-4 w-4 text-[#168C5A]" />
                   <h2 className="font-semibold text-[#111816]">
-                    {tx(locale, "Product Categories", "產品分類")}
+                    {tx(locale, "Battery Categories", "電池分類")}
                   </h2>
                 </div>
                 <p className="mt-1 text-xs text-[#5E6A65]">
-                  {tx(locale, "Select a battery family to compare models.", "選擇電池系列，快速比較型號與採購條件。")}
+                  {tx(locale, "Select by application, chemistry, and pack type.", "按用途、化學體系與電池包類型選型。")}
                 </p>
               </div>
 
@@ -201,8 +196,8 @@ function ProductCard({ locale, product }: { locale: string; product: Product }) 
 
   return (
     <Link href={`/${locale}/products/${product.slug}`} className="group">
-      <Card className="h-full overflow-hidden rounded-lg border-[#D7DDD9] bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#AAB6B0] hover:shadow-md">
-        <div className="relative aspect-[4/3] border-b border-[#D7DDD9] bg-white">
+      <Card className="h-full overflow-hidden rounded-md border-[#D7DDD9] bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#AAB6B0] hover:shadow-md">
+        <div className="relative aspect-square border-b border-[#D7DDD9] bg-white">
           {product.images[0] ? (
             <Image
               src={product.images[0]}
@@ -210,7 +205,7 @@ function ProductCard({ locale, product }: { locale: string; product: Product }) 
               fill
               loading="eager"
               sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-              className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
+              className="object-contain p-7 transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
             <div className="flex h-full items-center justify-center bg-[#E8ECEA]">
@@ -294,7 +289,7 @@ function ProductCard({ locale, product }: { locale: string; product: Product }) 
 
 function CatalogMetric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-[#D7DDD9] bg-[#F8FAF9] p-3">
+    <div className="rounded-md border border-[#D7DDD9] bg-[#F8FAF9] p-3">
       <span className="block text-xs text-[#5E6A65]">{label}</span>
       <span className="mt-1 block text-lg font-bold text-[#111816]">{value}</span>
     </div>
